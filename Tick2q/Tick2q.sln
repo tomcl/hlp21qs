@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Tick2q", "Tick2q.fsproj", "{A93F37F0-04C3-4343-9567-141CC1D6DB14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A93F37F0-04C3-4343-9567-141CC1D6DB14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93F37F0-04C3-4343-9567-141CC1D6DB14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93F37F0-04C3-4343-9567-141CC1D6DB14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93F37F0-04C3-4343-9567-141CC1D6DB14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2061E3F2-DB43-4B7A-95D5-A105D0EF8A64}
+	EndGlobalSection
+EndGlobal
