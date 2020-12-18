@@ -14,7 +14,7 @@
         /// This type is the type of the DSL functions that determine the logic implemented.
         and Update = Environment -> Result<Wire,string>
 
-        /// type of a variable with its current state. State if a binary 0 or 1
+        /// Type of a variable with its current state. State if a binary 0 or 1
         /// but encapsulated in a Result because if a variable update function references a 
         /// non-existent variable the value after update must be an error message.
         and Variable = {
@@ -23,22 +23,22 @@
             Value: Result<Wire,string>
             }
         
-            /// state of the system as a set of variables
-            /// could be a List or a Map indexed by Variable name as here.
+        /// State of the system as a set of variables
+        /// could be a List or a Map indexed by Variable name as here.
         and Environment = Map<string,Variable>
 
-        /// create an environment from a list of variables
-        /// if teh environment uses a list then this is just the identity function!
-        let createEnv (initData: Variable list) :Environment = 
+        /// Create an environment from a list of variables
+        /// if the environment uses a list then this is just the identity function!
+        let createEnv (initData: Variable list) : Environment = 
             failwithf "createEnv not implemented"
 
         /// Lookup a variable's value in envt from its name. If no such variable
         /// exists return an error saying that with useful diagnostic info.
-        let varLookup (vName: string) (envt:Environment)  : Result<Wire,string> =
+        let varLookup (vName: string) (envt:Environment) : Result<Wire,string> =
             failwithf "varLookup not implemented"
         
         /// Given a variable name, a new variable value, and an envt, return an updated
-        /// the envt changing the variable value to the specified new value.
+        /// envt changing the variable value to the specified new value.
         let updateEnvt (vName: string) (newValue: Result<Wire,string>) (env: Environment) =
             failwithf "updateEnvt not implemented"
     
@@ -52,7 +52,7 @@
         (envt, envt) ||> Map.fold (fun (env: Environment) (vName:string) (var:Variable) -> 
             updateEnvt vName (var.UpdateFn envt) env)
 
-    /// return environments after 0, 1, ... n applications of the step function
+    /// Return environments after 0, 1, ... n applications of the step function
     let nSteps (envt:Environment) (n:uint32): Environment list =
         (envt, [1u..n]) 
         ||> List.scan (fun env _i -> step env)
@@ -82,15 +82,15 @@
     let wConst (w: Wire): Update =
         failwithf "wconst not implemented"
         
-    /// logic value of a named variable
+    /// Logic value of a named variable
     /// this is the same as varLookup
     let wVar (name: string): Update = varLookup name
 
-    /// logic of a half adder
+    /// Logic of a half adder
     /// outputs are carry,sum
     let halfAdder a b = wAnd a b, wXor a b
 
-    /// logic of a full adder
+    /// Logic of a full adder
     /// outputs are carry,sum
     let fullAdder a b cin =
         let carry1, sum1 = halfAdder a b
@@ -100,7 +100,7 @@
     // makeCkt elements make a list of variables that can be turned into
     // an environment containing the circuit with createEnv
 
-    /// makes a numBits adder on variables as specified.
+    /// Makes a numBits adder on variables as specified.
     /// The necessary output variables: q and cout, are returned
     /// with suitable update functions
     /// input variables a[0..], b[0..] must be created elsewhere.
@@ -116,7 +116,7 @@
         let msCarry, qVars = makeAdderBit (numBits-1)
         {Name = cout; UpdateFn=msCarry; Value = Ok Zero} :: qVars
     
-    /// make a single variable as specified, returning it as a Variable list
+    /// Make a single variable as specified, returning it as a Variable list
     /// convenience function
     let makeCktVar name update value : Variable list =
         [{Name=name ; UpdateFn = update; Value = value}]
@@ -127,7 +127,7 @@
         makeCktVar (sprintf $"{namePrefix}{n}") bitUpdate (Ok init)
 
     /// Give variables named after namePrefix, with 0..numbits-1 after, constant values
-    /// such that bit n gets the nith bit of data. Litlle-endian bit numbering as normal.
+    /// such that bit n gets the nth bit of data. Little-endian bit numbering as normal.
     let rec makeCktInputs (namePrefix:string) (numBits:uint32) (data:uint32) =
         match numBits with
         | 0u -> []
