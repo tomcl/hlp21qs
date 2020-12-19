@@ -1,6 +1,8 @@
 ﻿module Simulate
 
-    /// module contains code specific to Map implementation of environment
+    /// Module contains code specific to Map implementation of environment.
+    /// The functions for you to implement currently fail with appropriate 
+    /// "_feature_ is not implemented!" messages.
     module MapEnvt =
         /// Type of a logic circuit input or output used in simulation
         /// This could be bool but creating a separate type gives better
@@ -11,8 +13,8 @@
         
         /// The type of the update function used to determine a single variable's new
         /// value based on the old values of all the variables as in an environment.
-        /// This type is the type of the DSL functions that determine the logic implemented.
-        and Update = Environment -> Result<Wire,string>
+        /// This type is the type of the domain-specific language (DSL) functions that determine the logic implemented.
+        type Update = Environment -> Result<Wire,string>
 
         /// Type of a variable with its current state. State if a binary 0 or 1
         /// but encapsulated in a Result because if a variable update function references a 
@@ -58,6 +60,17 @@
         ||> List.scan (fun env _i -> step env)
 
 
+    /// Logic Invertor function
+    // Given here as example. Use the individual update functions to produce
+    // a single correct one.
+    let wInvert (f1:Update) : Update =
+        fun env ->
+            f1 env
+            |> Result.map (function | Zero -> One | One -> Zero)
+        
+    /// Ok constant logic value
+    let wConst (w: Wire): Update =
+        failwithf "wconst not implemented"
 
     /// Logic AND function
     let wAnd (f1: Update) (f2:Update) : Update =
@@ -71,17 +84,6 @@
     let wXor (f1: Update) (f2:Update) : Update =
         failwithf "wXor not implemented"
 
-    /// Logic Invertor function
-    /// Given here as example
-    let wInvert (f1:Update) : Update =
-        fun env ->
-            f1 env
-            |> Result.map (function | Zero -> One | One -> Zero)
-        
-    /// Ok constant logic value
-    let wConst (w: Wire): Update =
-        failwithf "wconst not implemented"
-        
     /// Logic value of a named variable
     /// this is the same as varLookup
     let wVar (name: string): Update = varLookup name
