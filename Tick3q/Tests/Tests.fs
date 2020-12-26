@@ -1,5 +1,5 @@
-open TestLib
 open Expecto
+open TestLib // not currently used
 open Symbol
 
 
