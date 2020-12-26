@@ -1,4 +1,4 @@
-# HLP Spring 2021 Tick & Project Skeleton and Demo Code
+# HLP Spring 2021 Tick Skeleton and Example code
 
 
 
