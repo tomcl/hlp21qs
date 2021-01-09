@@ -60,12 +60,12 @@ let mutable mainWindow: BrowserWindow option = Option.None
 
 [<Emit("__static")>]
 let staticDir() :string = jsNative
-
+let isWin = Api.``process``.platform = Base.Win32
 let createMainWindow () =
     let options = jsOptions<BrowserWindowOptions> <| fun options ->
         options.width <- 1200
         options.height <- 800
-        options.show <- false
+        options.show <- not isWin
         options.autoHideMenuBar <- false
         options.frame <- true
         options.hasShadow <- true
