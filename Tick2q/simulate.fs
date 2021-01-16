@@ -136,7 +136,7 @@
         | n ->
             let getBit bitNum data = 
                 if data &&& (1u <<< int bitNum) <> 0u then One else Zero
-            let dat = getBit n data
+            let dat = getBit (n - 1u) data
             let thisInput = makeCktVarBit namePrefix (n-1u)  (fun _env -> Ok dat) (getBit (n-1u) data)
             thisInput @ makeCktInputs namePrefix (n-1u) data
 
