@@ -35,13 +35,9 @@ let makeDummyComponent (pos: XYPos): Component =
     { 
         X = int pos.X
         Y = int pos.Y
+        W = 0 // dummy
+        H = 0 // dummy
         Type = Not // dummy
-        W = 0 // not used
-        H = 0 // not used
-        Id = "" // not used 
-        Label = "" // not used
-        InputPorts = [] // not used
-        OutputPorts = [] // not used
     }
 
 //-----------------------Elmish functions with no content in Tick3----------------------//
@@ -87,6 +83,12 @@ let busDecoderViewDummy (comp: Component) =
         // use g svg element (SVG equivalent of div) to group any number of ReactElements into one.
         // use transform with scale and/or translate and/or rotate to transform group
         [
+            polygon [ // a demo svg polygon triangle
+                SVGAttr.Points "10,10 900,900 10,900"
+                SVGAttr.StrokeWidth "5px"
+                SVGAttr.Stroke "Black"
+                SVGAttr.FillOpacity 0.1
+                SVGAttr.Fill "Blue"] []
             line [X1 0.; Y1 0.; X2 0.; Y2 (100.) ; Style [Stroke "Black"]] [
              // child elements of line do not display since children of svg are dom elements
              // and svg will only display on svg canvas, not in dom.
