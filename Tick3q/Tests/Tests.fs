@@ -2,15 +2,9 @@ open Expecto
 open TestLib // not currently used
 open Symbol
 
-
-
-
-
 let validate w a n  = 
     makeBusDecoderComponent {X=0.;Y=0.} w a n
     |> busDecoderValidate
-
-
 
 let invalidWIsInvalid (w:int,a:int, n:int) =
     match validate w a n with
@@ -32,12 +26,12 @@ let invalidNIsInvalid (w:int,a:int, n:int) =
     | _ when  w > 0 && a >= 0 && a < maxBusValue && (n <= 0 || a+n > maxBusValue) -> false
     | _ -> true
 
-
 let validWANIsValid (w:int,a:int, n:int) =
     match validate w a n with
     | Ok _ when w > 0 && a >=0 && n > 0 && a+n < w -> true
     | _ when w > 0 && a >=0 && n > 0 && a+n < w -> false
     | _ -> true
+
 
 [<Tests>]
 let simulatorTests =
@@ -47,9 +41,6 @@ let simulatorTests =
         testProperty "Invalid n is Error(NIsInvalid,_)" invalidNIsInvalid
         testProperty "Valid w,a,n is Ok" validWANIsValid
     ]
-
-
-
 
 
 [<EntryPoint>]
