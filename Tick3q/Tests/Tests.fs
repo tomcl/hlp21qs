@@ -19,15 +19,17 @@ let invalidWIsInvalid (w:int,a:int, n:int) =
     | _ -> true
 
 let invalidAIsInvalid (w:int,a:int, n:int) =
+    let maxBusValue = int (2.0 ** float w)
     match validate w a n with
-    | Error( AIsInvalid,_) when w > 0 && (a < 0 || a >= w) -> true
-    | _ when w > 0 && (a < 0 || a >= w )-> false
+    | Error( AIsInvalid,_) when w > 0 && (a < 0 || a >= maxBusValue) -> true
+    | _ when w > 0 && (a < 0 || a >= maxBusValue)-> false
     | _ -> true
 
 let invalidNIsInvalid (w:int,a:int, n:int) =
+    let maxBusValue = int (2.0 ** float w)
     match validate w a n with
-    | Error( NIsInvalid,_) when w > 0 && a >= 0 && a < w && (n <= 0 || a+n > w) -> true
-    | _ when  w > 0 && a >= 0 && a < w && (n <= 0 || a+n > w) -> false
+    | Error( NIsInvalid,_) when w > 0 && a >= 0 && a < maxBusValue && (n <= 0 || a+n > maxBusValue) -> true
+    | _ when  w > 0 && a >= 0 && a < maxBusValue && (n <= 0 || a+n > maxBusValue) -> false
     | _ -> true
 
 
