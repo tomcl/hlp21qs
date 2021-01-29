@@ -5,9 +5,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../src/renderer/Helpers.fs" />
-    <Compile Include="../src/renderer/CommonTypes.fs" />
-    <Compile Include="../src/renderer/Symbol.fs" />
+    <Compile Include="../src/Renderer/Helpers.fs" />
+    <Compile Include="../src/Renderer/CommonTypes.fs" />
+    <Compile Include="../src/Renderer/Symbol.fs" />
     <Compile Include="TestLib.fs" />
     <Compile Include="Tests.fs" />
   </ItemGroup>
