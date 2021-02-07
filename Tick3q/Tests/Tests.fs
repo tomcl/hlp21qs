@@ -18,14 +18,14 @@ let invalidAIsInvalid (w:int,a:int, n:int) =
     let maxBusValue = int (2.0 ** float w)
     match validate w a n with
     | Error( AIsInvalid,_) when w > 0 && (a < 0 || a >= maxBusValue) -> true
-    | _ when w > 0 && (a < 0 || a >= maxBusValue)-> false
+    | _ when w > 0 && (a < 0 || (maxBusValue > 0 && a >= maxBusValue))-> false
     | _ -> true
 
 let invalidNIsInvalid (w:int,a:int, n:int) =
     let maxBusValue = int (2.0 ** float w)
     match validate w a n with
     | Error( NIsInvalid,_) when w > 0 && a >= 0 && a < maxBusValue && (n <= 0 || a+n > maxBusValue || a + n <= 0 ) -> true
-    | _ when  w > 0 && a >= 0 && a < maxBusValue && (n <= 0 || a+n > maxBusValue) -> false
+    | _ when  w > 0 && a >= 0 && a < maxBusValue && (n <= 0 || (maxBusValue < 0 ||  a+n > maxBusValue)) -> false
     | _ -> true
 
 let validWANIsValid (w:int,a:int, n:int) =
