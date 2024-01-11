@@ -45,7 +45,7 @@ module PartC =
     open PartACase3 // get unqualified access to Case 3 types and values
     open PartBCase3 // get unqualified access to classify function
 
-    type Marks = float // simplified set of marks (just one mark) used for testing
+    type Marks = {Mark1: float} // simplified set of marks (just one mark) used for compilation of code
 
     /// Return the total mark for a student used to determine classification. 
     /// marks:  constituent marks of student on given course.
@@ -54,8 +54,8 @@ module PartC =
     /// outside the correct range 0 - 100.
     let markTotal (marks: Marks) (course: string) : float option =
         match course with
-        | "MEng"  | "BEng" | "MSc" when marks <= 100.0 && marks >= 0.0 ->
-            Some marks // in this case with only one mark, student total is just the mark!
+        | "MEng"  | "BEng" | "MSc" when marks.Mark1 <= 100.0 && marks.Mark1 >= 0.0 ->
+            Some marks.Mark1 // in this case with only one mark, student total is just the mark!
         | _ -> None
 
     /// Return a number in the range 0 - 2.5 which determines how much, 
@@ -84,9 +84,9 @@ module PartC =
         (upliftFunc: Marks -> string -> Result<float option,string>)
                 : Result<string,string> =
         // This function needs the marks components (marks) as well as the overall mark computed from markTotal
-        // Note that even if marks are a single float markTotal can return None, which must be dealt with.
-        // in this case marks is not needed because it contains no extra info but in the general case it is
-        // needed because upliftFunc depends on components of marks
+        // Note that markTotal can return None, which must be dealt with.
+        // In this case marks is not needed by upliftFunc because it contains no extra info but in the general case it is
+        // needed because upliftFunc depends on all the components of marks, not juts the total.
         failwithf "Not implemented" // replace by your code ()
 
         // This illustrative code ignores the possible None and Error returns from
