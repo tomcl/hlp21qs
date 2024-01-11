@@ -142,7 +142,7 @@ module PartX =
     type Lens<'A,'B> = ('A -> 'B) * ('B -> 'A -> 'A)
 
     let lensMap (lens: Lens<'A,'B>) (f: 'B -> 'B) (a: 'A) =       
-        (fst lens a |> snd lens) a
+        (fst lens a |> f |> snd lens) a
 
     let mapCAndB (lensC: Lens<'A,'C>) (lensB: Lens<'A,'B>) (fc:'C->'C) (fb: 'B->'B) =
         lensMap lensC fc >> lensMap lensB fb
