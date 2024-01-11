@@ -66,7 +66,8 @@ module PartC =
     /// Return an error if boundary is not a valid boundary.
 
     let upliftFunc 
-        (total: float) 
+        (total: Marks) 
+        (markTotal: Marks -> string -> float Option)
         (boundaryMark: float)
         (boundary:string) 
         (course: string)
@@ -79,17 +80,21 @@ module PartC =
     let classifyAndUplift 
         (course: string) 
         (marks: Marks)
-        (markTotal: Marks -> string -> float option)
+        (markTotal: Marks -> string -> float option) // made a parameter here for flexibility
         (upliftFunc: Marks -> string -> Result<float option,string>)
                 : Result<string,string> =
-
+        // This function needs the marks components (marks) as well as the overall mark computed from markTotal
+        // Note that even if marks are a single float markTotal can return None, which must be dealt with.
+        // in this case marks is not needed because it contains no extra info but in the general case it is
+        // needed because upliftFunc depends on components of marks
         failwithf "Not implemented" // replace by your code ()
 
         // This illustrative code ignores the possible None and Error returns from
         // markTotal and upliftFunc.
         // Your code must cope with these, and work out which is the 
         // relevant boundary, and what is its mark.
-        // let effectiveMark = markTotal marks course + upliftFunc marks boundaryMark boundaryName
+        // let total = markTotal marks course
+        // let effectiveMark = total + upliftFunc total boundaryMark boundaryName
         // let className = classify course effectiveMark
         // className
 
@@ -117,11 +122,11 @@ module TestClassify =
         |> List.map (fun (data as (course,mark,_)) -> classify course mark, data)
         |> List.filter (fun (actualClass, (_,_,className)) -> actualClass <> className)
         |> function 
-            | [] -> printf $"all '{testName}' tests passed"
+            | [] -> printfn $"all '{testName}' tests passed."
             | fails -> 
                 fails 
                 |> List.iter (fun (actual, (course,mark,className)) 
-                                -> printf $"Test Failed: {course}, {mark}, expected className={className}, \
+                                -> printfn $"Test Failed: {course}, {mark}, expected className={className}, \
                                           actual className={actual}")
 
 
