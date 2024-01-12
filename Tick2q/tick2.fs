@@ -58,45 +58,39 @@ module PartC =
             Some marks.Mark1 // in this case with only one mark, student total is just the mark!
         | _ -> None
 
-    /// Return a number in the range 0 - 2.5 which determines how much, 
-    /// based on constituent marks, a student's markTotal should 
-    /// be uplifted if it is
-    /// within the valid possible uplift range (0 - -2.5%) of the boundary.
-    /// Return None if the mark is not in the uplift range of the boundary. 
-    /// Return an error if boundary is not a valid boundary.
-
+    /// Operation:
+    /// 1. Return an error if boundary is not a valid boundary for course.
+    /// 2. Return IsAboveBoundary = true if total is above or equal to boundary
+    /// 3. Return Uplift = Some uplift if total is in the valid possible uplift range (0 - -2.5%) of boundary.
     let upliftFunc 
-        (total: Marks) 
-        (markTotal: Marks -> string -> float Option)
+        (marks: Marks) 
         (boundaryMark: float)
         (boundary:string) 
         (course: string)
-            : Result<float option, string> =
-
+            : Result<{|IsAboveBoundary: bool; Uplift:float option|}, string> =
+        // Use markTotal to calculate total from marks
+        // Also return an error if markTotal fails to calculate a mark
+        // Ok return type is an anonymous record see link in WS2.
         failwithf "Not Implemented" // do not change - implementation not required
 
+    /// Given a list of boundaries, and a course, and a student's marks:
     /// Return the student classification, or an error message if there is
-    /// an error in the data.
+    /// any error in the data.
     let classifyAndUplift 
+        (boundaries: string list)
         (course: string) 
         (marks: Marks)
-        (markTotal: Marks -> string -> float option) // made a parameter here for flexibility
-        (upliftFunc: Marks -> string -> Result<float option,string>)
                 : Result<string,string> =
-        // This function needs the marks components (marks) as well as the overall mark computed from markTotal
-        // Note that markTotal can return None, which must be dealt with.
-        // In this case marks is not needed by upliftFunc because it contains no extra info but in the general case it is
-        // needed because upliftFunc depends on all the components of marks, not juts the total.
-        failwithf "Not implemented" // replace by your code ()
+        // Use upliftFunc and markTotal and classify.
+        // Assume that the student can be within possible uplift range of at most one boundary.
+        // Assume that classify is correct unless student is within uplift range of a given boundary,
+        // If student is within uplift range of a boundary work out classification as:
+            // let total = markTotal marks course
+            // let effectiveMark = total + upliftFunc total boundaryMark boundaryName
+            // let className = classify course effectiveMark
+            // Return Ok classname or an error if there is any error.
 
-        // This illustrative code ignores the possible None and Error returns from
-        // markTotal and upliftFunc.
-        // Your code must cope with these, and work out which is the 
-        // relevant boundary, and what is its mark.
-        // let total = markTotal marks course
-        // let effectiveMark = total + upliftFunc total boundaryMark boundaryName
-        // let className = classify course effectiveMark
-        // className
+        failwithf "Not implemented" // replace by your code ()
 
 //------------------------------Simple test data and functions---------------------------------//
 module TestClassify =
