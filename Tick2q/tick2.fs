@@ -89,7 +89,7 @@ module PartC =
             // let effectiveMark = total + upliftFunc boundaryMark boundaryName course
             // let className = classify course effectiveMark
             // Return Ok classname or an error if there is any error.
-            // (option and error returns ignored here, muts be dealt with)
+            // (option and error returns ignored in above comments, must be dealt with)
 
         failwithf "Not implemented" // replace by your code ()
 
