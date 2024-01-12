@@ -84,11 +84,12 @@ module PartC =
         // Use upliftFunc and markTotal and classify.
         // Assume that the student can be within possible uplift range of at most one boundary.
         // Assume that classify is correct unless student is within uplift range of a given boundary,
-        // If student is within uplift range of a boundary work out classification as:
+        // If student is within uplift range of a boundary `boundaryName` work out classification as:
             // let total = markTotal marks course
-            // let effectiveMark = total + upliftFunc total boundaryMark boundaryName
+            // let effectiveMark = total + upliftFunc boundaryMark boundaryName course
             // let className = classify course effectiveMark
             // Return Ok classname or an error if there is any error.
+            // (option and error returns ignored here, muts be dealt with)
 
         failwithf "Not implemented" // replace by your code ()
 
