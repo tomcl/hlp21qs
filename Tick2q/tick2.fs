@@ -76,6 +76,8 @@ module PartC =
     /// Given a list of boundaries, and a course, and a student's marks:
     /// Return the student classification, or an error message if there is
     /// any error in the data.
+    /// boundaries: name only, subfunctions will know boundary marks based on course, 
+    /// this function needs only the results of calling its subfunctions.
     let classifyAndUplift 
         (boundaries: string list)
         (course: string) 
