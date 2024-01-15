@@ -24,14 +24,20 @@ let l4 = l1 @ l2 @ l3
 let f1 a b = a + b
 let f2 = fun a -> (fun b -> a + b)
 
-let S' f g x = (f x) (g x)
+//let ignore x = ()
 
-let S f g x = f x (g x) // brackets round f x are not necessary
+//let pipe a b = a |> b
+
+//let listDouble lst = pipe (fun n -> n*2) List.map lst
+
+//let S1 f g x = (f x) (g x)
+
+//let S f g x = f x (g x) // brackets round f x are not necessary
 
 // How to work out type of S?
 (*
 1. Start with unknown types of x, f, g, S
-2. f, g, S must be functions : 'a -> 'b where we need to work out 'a and 'b sepaartely for each of them
+2. f, g, S must be functions : 'a -> 'b where we need to work out 'a and 'b separately for each of them
 3a. type of x
 3b. type of g
 3c. type of f
