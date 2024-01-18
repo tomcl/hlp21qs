@@ -13,7 +13,7 @@ module PartACase2 =
 
 module PartACase3 =
     () // dummy value to make submodule non-empty
-    // One record type, three data values of this type. Choose suitable names.
+    // One type, three data values of this type. Choose suitable names.
 
 //---------------------------Tick2 PartB case 2 skeleton code-------------------------------//
 
