@@ -70,6 +70,9 @@ module PartC =
         // Use markTotal to calculate total from marks
         // Also return an error if markTotal fails to calculate a mark
         // Ok return type is an anonymous record see link in WS2.
+        // upliftFunc is assumed (when implemented) to take boundary info from a value defined above
+        // with whatever data structure is used for it. In Part C you do not implement
+        // upliftFunc and so need not consider any of this.
         failwithf "Not Implemented" // do not change - implementation not required
 
     /// Given a list of boundaries, and a course, and a student's marks:
