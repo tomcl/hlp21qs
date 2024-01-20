@@ -64,7 +64,6 @@ module PartC =
     /// 3. Return Uplift = Some uplift if total is in the valid possible uplift range (0 - -2.5%) of boundary.
     let upliftFunc 
         (marks: Marks) 
-        (boundaryMark: float)
         (boundary:string) 
         (course: string)
             : Result<{|IsAboveBoundary: bool; Uplift:float option|}, string> =
