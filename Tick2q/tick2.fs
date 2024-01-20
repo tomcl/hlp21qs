@@ -90,7 +90,7 @@ module PartC =
         // Assume that classify is correct unless student is within uplift range of a given boundary,
         // If student is within uplift range of a boundary `boundaryName` work out classification as:
             // let total = markTotal marks course
-            // let effectiveMark = total + upliftFunc boundaryMark boundaryName course
+            // let effectiveMark = total + upliftFunc boundaryName course
             // let className = classify course effectiveMark
             // Return Ok classname or an error if there is any error.
             // (option and error returns ignored in above comments, must be dealt with)
