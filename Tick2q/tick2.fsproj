@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Tick2.fs" />
+    <Compile Include="tick2.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
