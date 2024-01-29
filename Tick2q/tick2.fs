@@ -116,6 +116,11 @@ module TestClassify =
         "BEng", 35.0, Ok "Fail"        
     ]
 
+    let printResult res = 
+        match res with 
+            | Ok s -> sprintf "Ok: %s" s
+            | Error s -> sprintf "Error: %s" s
+
     let runClassifyTests unitTests classify testName =
         unitTests
         |> List.map (fun (data as (course,mark,_)) -> classify course mark, data)
@@ -125,8 +130,8 @@ module TestClassify =
             | fails -> 
                 fails 
                 |> List.iter (fun (actual, (course,mark,className)) 
-                                -> printfn $"Test Failed: {course}, {mark}, expected className={className}, \
-                                          actual className={actual}")
+                                -> printfn $"Test Failed: {course}, {mark}, expected className={printResult className}, \
+                                          actual className={printResult actual}")
 
 
 //-------------------------------------------------------------------------------------------//
