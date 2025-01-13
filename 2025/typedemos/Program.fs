@@ -50,29 +50,3 @@ let mixedtuple3()  =
 *)
 
 
-let fL1 a b c =
-    c
-    |> List.filter a
-    |> List.map b
-
-let ex1 = fL1 (fun n -> n % 2 = 0) (fun n -> n * n) [1..10]
-
-printfn $"ex1 = %A{ex1}\n"
-
-let fL2 f g cL =
-    cL
-    |> List.map (fun x -> List.mapi f x)
-    |> List.map g
-    
-
-let exOfReplicate = String.replicate 3 "ab"
-
-printfn $"""example of String.replicate 3 "ab" = {exOfReplicate}\n"""
-
-let exOfConcat = String.concat "." ["a";"b";"c"]
-
-printfn $"""example of String.concat "." ["a";"b";"c"] = {exOfConcat}\n"""
-
-let ex2 = fL2 String.replicate (String.concat "") [["a" ; "b" ; "c" ; "d"] ; ["1" ; "2" ; "3" ; "4"]]
-
-printfn $"ex2 = %A{ex2}"
