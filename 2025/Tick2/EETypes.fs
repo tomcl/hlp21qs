@@ -113,4 +113,7 @@ let moduleList = [
 ]
 
 
-
+let moduleGroupSizes =
+    moduleList
+    |> List.map (fun m -> m.ModuleCode, (System.Random 0).Next(3, 9))
+    |> Map.ofList

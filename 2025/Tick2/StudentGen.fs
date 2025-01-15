@@ -113,7 +113,8 @@ let names =
         Chelsea Robinson
         Natalia Burch
         Isaac Lawrence
-        Leigh SimpsonMartin Morrison
+        Leigh Simpson
+        Martin Morrison
         Allison Perez
         Jon Booker
         Stacey Harris
@@ -162,7 +163,8 @@ let names =
         Jan Carney
         Jamison Abbott
         Eileen Burke
-        Lewis DanielVirgilio Hines
+        Lewis Daniel
+        Virgilio Hines
         Aldo Rios
         Marissa Little
         Warren Mcmahon

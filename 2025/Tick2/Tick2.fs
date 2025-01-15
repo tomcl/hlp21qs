@@ -16,7 +16,7 @@ open EETypes
 
 /// Generate a list of random module codes for a student obeying the rules:
 /// - The student must take three modules.
-/// - The student registration muts be in the OptionalFor list of each taken module.
+/// - The student registration must be in the OptionalFor list of each taken module.
 /// - The student must not take the same module twice.
 /// - You must use StudentGen.randomStudentOptions, and pass it rng.
 let studentOptionsPartA (rng: System.Random) (person: Person) : ModuleOptions =
@@ -54,14 +54,14 @@ let groupStudents
             Result<Map<ModuleCode,Map<Person,int>>,ModuleCode list> =
     (*
     Note that N items divided into G groups of size S or S+1 will have N / G = S (integer division).
-    From this we can see that the number of groups of size S + 1 will be N % G, and the number of groups of size S will be G - N % G.
+    From this we can see that the number of groups of size S + 1 will be N % S, and the number of groups of size S will be N - N % S.
     In answering this question try to use indexes as little as possible, and use the functions from the List module.    
     *)
     failwithf "Not Implemented"
 
 // Part E - Optional. Implement the fuction below.
 
-/// - Divide each module's students into groups as for groupStudnents above, except that the groups must be formed so that the average 
+/// - Divide each module's students into groups as for groupStudents above, except that the groups must be formed so that the average 
 /// - CourseMark of each group is as close as possible to the average CourseMark of the module's students
 /// - Choose the student partition for which the sum of the squares of the differences between the group averages and the module average is minimised.
 let groupStudentsByEqualExamAverage 
@@ -69,7 +69,7 @@ let groupStudentsByEqualExamAverage
         (data: EEData) : 
             Result<Map<ModuleCode,Map<Person,int>>,ModuleCode list> =
     (*
-        The imlementation required here is to enumerate all possible partitions of the students into groups satisfying the group size requirement, 
+        The implementation required here is to enumerate all possible partitions of the students into groups satisfying the group size requirement, 
         and to choose the one that minimises the sum of the squares of the differences between the group averages and the module average of CourseMark.
 
         This is a combinatorial problem, and the number of possible partitions is very large. Make sure that your solution does not
@@ -90,7 +90,7 @@ let groupStudentsByEqualExamAverage
         One recommended implementation is using two separate full recursive functions:
         - One to find student subsets of size S from a given set containing a given student.
         - One to solve the problem, by finding all partitions of the students into groups of size S.
-        - Note that for this porblem using lists to represent sets of students is a better choice than Sets
+        - Note that for this problem using lists to represent sets of students is a better choice than Sets
           because the Set module has fewer library functions and less convenient syntax than the List module.
 
     *)
