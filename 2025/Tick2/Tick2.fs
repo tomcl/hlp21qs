@@ -58,7 +58,7 @@ let groupStudents
             Result<Map<ModuleCode,Map<Person,int>>,ModuleCode list> =
     (*
     Note that N items divided into G groups of size S or S+1 will have N / G = S (integer division).
-    From this we can see that the number of groups of size S + 1 will be N % S, and the number of groups of size S will be N - N % S.
+    From this we can see that the number of groups of size S + 1 will be N % S, and the number of groups of size S will be N / S - N % S.
     In answering this question try to use indexes as little as possible, and use the functions from the List module.    
     *)
     failwithf "Not Implemented"
