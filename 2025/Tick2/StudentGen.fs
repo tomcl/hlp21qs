@@ -214,12 +214,12 @@ let names =
         Isabelle Owens
         Jospeh York
         Valeria Bentley"""
-
     |> splitOnChar '\n'
     |> Array.map (fun s -> s.Trim())
     |> Array.map (splitOnChar ' ') 
+    |> Array.filter (fun a -> a.Length = 2)
     |> Array.map (function | [|first; last|] -> first,last
-                           | nameParts -> failwithf $"badly formatted student name: {nameParts}")
+                           | nameParts -> failwithf $"badly formatted student name: '%A{nameParts}'")
     |> Array.unzip
     |> fun (firsts, lasts) -> Array.distinct firsts, Array.distinct lasts
     |> fun (firsts, lasts) -> 

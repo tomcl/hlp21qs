@@ -41,7 +41,7 @@ module Map =
     /// return a list of the Map keys
     let keysL (m: Map<'a,'B> ) = 
         m
-        |> Map.values
+        |> Map.keys
         |> Seq.toList
 
 
