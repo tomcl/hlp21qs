@@ -1,0 +1,37 @@
+("Elec60015",
+ map
+   [({ Name = { First = "Kurt"
+                Last = "Green" }
+       CID = "70946302"
+       ERegYr = "E3"
+       CourseMarkSoFar = 62.86027041 }, 2);
+    ({ Name = { First = "Kurt"
+                Last = "Little" }
+       CID = "79122041"
+       ERegYr = "E3"
+       CourseMarkSoFar = 73.53308768 }, 5);
+    ({ Name = { First = "Kurt"
+                Last = "Lowery" }
+       CID = "12733029"
+       ERegYr = "E3"
+       CourseMarkSoFar = 67.19963111 }, 3);
+    ({ Name = { First = "Kurt"
+                Last = "Mays" }
+       CID = "60299630"
+       ERegYr = "E3"
+       CourseMarkSoFar = 68.03888202 }, 4);
+    ({ Name = { First = "Kurt"
+                Last = "Serrano" }
+       CID = "72994777"
+       ERegYr = "E3"
+       CourseMarkSoFar = 53.27888437 }, 0);
+    ({ Name = { First = "Kurt"
+                Last = "Terry" }
+       CID = "99581236"
+       ERegYr = "I3"
+       CourseMarkSoFar = 85.77781529 }, 6);
+    ({ Name = { First = "Kurt"
+                Last = "Vargas" }
+       CID = "86324659"
+       ERegYr = "E3"
+       CourseMarkSoFar = 56.40708901 }, 1)])

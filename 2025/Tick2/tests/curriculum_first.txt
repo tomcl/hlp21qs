@@ -1,0 +1,3 @@
+("Elec60015", { ModuleCode = "Elec60015"
+                OptionalFor = ["E3"; "I3"]
+                Term = "Spring" })
