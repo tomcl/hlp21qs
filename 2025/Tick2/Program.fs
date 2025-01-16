@@ -86,6 +86,13 @@ open EETypes
 open StudentGen
 open System.IO
 
+(*
+    These tests are provided as is in case you want to use them to test your functions.
+    They are not necessarily complete, but will catch obvious errors.
+    Functions should be written so that their correctness is "obvious" from the code, where that is possible.
+    Part E has no tests as it is not required for full marks.
+*)
+
 // Function to read from a file
 let readFromFile filePath =
     File.ReadAllText(filePath)
@@ -94,28 +101,24 @@ let readFromFile filePath =
 let writeToFile filePath content =
     File.WriteAllText(filePath, content)
 
-// Function to convert a map to a sorted list and return the first element as a string
-let mapToSortedListAndFirstElement map =
+// Return the minimum (key,value) map element in standard lexicographic ordering as a string
+// Fails if the Map is empty (maybe this should be corrected)
+let stringOfLowestMapElement map =
     map 
     |> Map.toList 
-    |> List.sortBy fst 
-    |> List.head 
+    |> List.minBy fst 
     |> sprintf "%A"
 
-// Your existing code modified to output to files
+// The answer code modified to output to files:
 let rng = System.Random 0
 let test_student = (getRandomStudentList 0 1)[0]
 let test_options = studentOptionsPartA rng test_student
-
 let test_eedata = getValidEEdata 0 25
 
-// Convert People, Curriculum, and Options maps to sorted lists and write the first element to files
-let peopleFirst = mapToSortedListAndFirstElement test_eedata.People
-
-let curriculumFirst = mapToSortedListAndFirstElement test_eedata.Curriculum
-
-let optionsFirst = mapToSortedListAndFirstElement test_eedata.Options
-
+// Read strings to compare with expected from Tick2 function data
+let peopleFirst = stringOfLowestMapElement test_eedata.People
+let curriculumFirst = stringOfLowestMapElement test_eedata.Curriculum
+let optionsFirst = stringOfLowestMapElement test_eedata.Options
 let test_groups = groupStudents moduleGroupSizes test_eedata
 
 // Now, let's compare the outputs with the contents of the files
@@ -129,13 +132,13 @@ let compareOutputs () =
 
     // Run the functions
     let student_options = studentOptionsPartA rng test_student
-    let people_first = mapToSortedListAndFirstElement test_eedata.People
-    let curriculum_first = mapToSortedListAndFirstElement test_eedata.Curriculum
-    let options_first = mapToSortedListAndFirstElement test_eedata.Options
+    let people_first = stringOfLowestMapElement test_eedata.People
+    let curriculum_first = stringOfLowestMapElement test_eedata.Curriculum
+    let options_first = stringOfLowestMapElement test_eedata.Options
 
     let groups_first = 
         match groupStudents moduleGroupSizes test_eedata with
-        | Ok inner -> mapToSortedListAndFirstElement inner
+        | Ok inner -> stringOfLowestMapElement inner
         | Error error -> sprintf "%A" error
 
     // Compare the outputs with the contents of the files
