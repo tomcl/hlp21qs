@@ -44,12 +44,14 @@ let getValidEEdata (seed: int) (numStudents: int) : EEData =
 // Part D - implement the function below
 
 /// - Divide each module's students into groups.
-/// - For module m The number of students in each group must be equal to groupSize m or groupSize (m+1).
+/// - For module m The number of students in each group must be equal to groupSize[m] or groupSize[m] + 1.
 /// - The smaller groups must be formed from the students with higher Course marks.
 /// - Each group must be formed from students with marks as close together as possible
+/// - If there are zero students in any module the function should fail with the failing module code list.
 /// - Let r be the return value. If the function succeeds r[m][p] is a group number that defines the group of student p in module m.
 /// - Within a given module the group numbers must be contiguous from 1 to the number of groups.
-/// - If the function fails a list of the modules that fail should be returned as an Error.
+/// - The function fails if groupSize[m] is larger than the number of students in module m for any module,
+/// - in which case it returns Error with the list of failing module codes.
 let groupStudents 
         (groupSize: Map<ModuleCode,int>) 
         (data: EEData) : 
