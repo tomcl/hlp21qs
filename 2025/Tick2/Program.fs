@@ -121,11 +121,11 @@ let test_groups = groupStudents moduleGroupSizes test_eedata
 // Now, let's compare the outputs with the contents of the files
 let compareOutputs () =
     // Read the contents of the files
-    let expected_options = readFromFile "test_options.txt"
-    let expected_people_first = readFromFile "people_first.txt"
-    let expected_curriculum_first = readFromFile "curriculum_first.txt"
-    let expected_options_first = readFromFile "options_first.txt"
-    let expected_groups_first = readFromFile "test_groups.txt"
+    let expected_options = readFromFile "./tests/test_options.txt"
+    let expected_people_first = readFromFile "./tests/people_first.txt"
+    let expected_curriculum_first = readFromFile "./tests/curriculum_first.txt"
+    let expected_options_first = readFromFile "./tests/options_first.txt"
+    let expected_groups_first = readFromFile "./tests/test_groups.txt"
 
     // Run the functions
     let student_options = studentOptionsPartA rng test_student
