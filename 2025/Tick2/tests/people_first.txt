@@ -1,0 +1,5 @@
+("12733029", { Name = { First = "Kurt"
+                        Last = "Lowery" }
+               CID = "12733029"
+               ERegYr = "E3"
+               CourseMarkSoFar = 67.19963111 })
