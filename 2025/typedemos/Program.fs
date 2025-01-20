@@ -49,4 +49,29 @@ let mixedtuple3()  =
     myId "a", myId 2, myId
 *)
 
+let q1 x = if x = 2 then "two" else "not two"
+
+let q2(a,b) = a b
+
+let q3 a b c = a b c
+
+let q4 a b = (a b) b
+
+let rec q5 a b = if a = 0 then b else q5 (a-1) (b+1.0)
+
+let q6 x = [x] @ ["aa"]
+
+let q8 f l = if l = [] then 0 else f (List.head l)
+
+let q9 f g h x = f (g (h x))
+
+let q10 x y =
+    let g x = x,x
+    let f a (c:float) = a + int (c / 3.0)
+    f (fst (g 0)) (snd (g 1.0))
+
+let q11 x  : int list * float list =
+    let l1 = List.map x [1;2;3]
+    let l2 = List.map x [1.0;2.0;3.0]
+    l1,l2
 
