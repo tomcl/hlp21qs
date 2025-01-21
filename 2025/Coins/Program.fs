@@ -16,7 +16,7 @@ let rec coinChange (coins: int list) (amount: int) : int =
         0
     | [] , _ -> // NB here we have a non-zero amount
         0
-    | c::cs , a -> 
+    | c::cs , _ -> 
         coinChange coins (amount - c) + coinChange cs amount
 
 // NOTES
