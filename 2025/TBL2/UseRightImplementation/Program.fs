@@ -81,8 +81,9 @@ let splitList (lst: 'a option list) : 'a list list =
 let oddSublists (lst: 'a list list) : 'a list =
     failwithf "Not Implemented"
 
-/// Given a map defining a graph, return the list of all nodes that are reachable from the start node.
-/// use Dijkstra's algorithm, or some variant with different end conditions, to find the reachable nodes.
+/// Given a map defining the arrows in a directed graph, return the list of all nodes that are reachable 
+/// from the start node.
+/// Use Dijkstra's algorithm, or some variant with different end conditions, to find the reachable nodes.
 let reachableNodes (start: 'a) (graph: Map<'a, 'a list>) : 'a list =
     failwithf "Not Implemented"
     
