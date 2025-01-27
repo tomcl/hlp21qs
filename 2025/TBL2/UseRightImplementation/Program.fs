@@ -43,6 +43,9 @@ let modals (lst: 'a list) : 'a list =
 /// Return the element that occurs most times in a list of integers.
 /// If there are multiple such return the lowest.
 let maxRepeats (lst: int list) : int =
+        List.scan //- current state is repeat number paired with current integer
+        List.sortBy //- sort on repeat number paired with - integer
+        List.head
         failwithf "Not Implemented"
 
 /// A palindrome is a word that reads the same forwards and backwards. 
@@ -51,12 +54,17 @@ let maxRepeats (lst: int list) : int =
 /// Return the list of all non-palindromic values (without repeated values) in the order they
 /// first appear in the list.
 let nonPalindromic (lst: 'a list) : 'a list =
+        let rLst = List.rev lst
+        List.zip lst rLst
+        List.filter // non-palindromic
+        List.map fst // origianl lits values
         failwithf "Not Implemented"
 
 /// Given a list of words, return a unique list of all non-empty proper substrings of the words that are in the list.
 /// A proper substring is one that is not the same as the original word.
 /// NB - use method Contains: w.Contains(x) checks if string w contains string x
 let subWords (lst: string list) : 'a list =
+        List.filter // filter (fun x -> List.exists (fun w -> w.contains(x)) //the word is contained in some other word in the list
         failwithf "Not Implemented"
 
 /// A list of pairs determines a state machine. Each pair is a transition from one state to another.
@@ -66,6 +74,13 @@ let subWords (lst: string list) : 'a list =
 /// return the list of state machine states in the order they are visited.
 /// If the state machine runs for more than maxClocks, return None
 let runStateMachine (maxClocks: int) (start: 'a) (lst: ('a * 'b) list)  : 'a list option =
+        ( start,[0..maxClocks-1])
+        ||> List.scan // Option.map folder function that does state transition or returns None
+        |> List.takeWhile // take while scan result list elements are not None
+        |> function | [] -> None, 
+                    | lst -> List.map Option.get lst // get the values from the option list
+
+
         failwithf "Not Implemented"
         
 /// Given a list of integers, return the list of all integers that are 
@@ -73,31 +88,54 @@ let runStateMachine (maxClocks: int) (start: 'a) (lst: ('a * 'b) list)  : 'a lis
 /// The order of the list is the order the values appear in the list.
 /// The list of integers may contain duplicates.
 let sumOfTwo (lst: int list) : int list =
+    let sumEls = // to make it much more time-efficient calculate this first
+        List.allPairs lst lst
+        ||> List.map (+)
+        |> List.distinct // remove duplicates - optional
+    lst
+    |> List.filter (fun x -> List.exists (fun y -> x = y) sumEls)
     failwithf "Not Implemented"
 
 /// Create a map that maps each number from 1 to maxInt to the largest divisor of that number.
 let createLargestDivisorMap (maxInt: int) =
+    [1..MaxInt]
+    |> (fun n -> List.filter // keep only divisors /pair result with number)
+    |> List.map // return max divisor list paired with number
+    |> Map.ofList // create map from list
     failwithf "Not Implemented"
 
 /// Given two maps, return a map that contains the union of the two maps.
 /// duplicated keys should have the value from the first map.
 let mapUnion (map1: Map<'a,'b>) (map2: Map<'a,'b>) : Map<'a,'b> =
+    // start with map2
+    // Map.fold over map1 adding to map2
     failwithf "Not Implemented"
 
 /// Given a list of lists, encoded as a single list of options, where each sublist is terminated by None.
 /// Thus [Some 1; Some 2; None; Some 3; Some 4; None] is [[1;2];[3;4]]
 /// Return the list of lists
 let splitList (lst: 'a option list) : 'a list list =
+    // List.fold - state is pair of current list and previous list of lists
+    // snd of state is previous lits of lists
     failwithf "Not Implemented"
 
 /// Given a list of lists, return the list of all values that are in an odd number of the sublists.
 let oddSublists (lst: 'a list list) : 'a list =
+    // use Sets. That allows Set.difference
+    // List.fold over lits of lists, keeping as state Set of elements that are currently in od number
+    // use Set.difference to generate next state from previous state diferneced with current list converted to Set
     failwithf "Not Implemented"
 
 /// Given a map defining the arrows in a directed graph, return the list of all nodes that are reachable 
 /// from the start node.
 /// Use Dijkstra's algorithm, or some variant with different end conditions, to find the reachable nodes.
 let reachableNodes (start: 'a) (graph: Map<'a, 'a list>) : 'a list =
+    // Dijkstra's algorithm
+    List.fold over list of nodes, since path cannot be longer than that
+    State is list of nodes reached so far
+    Folder:
+        List.collect - generate possible next state nodes from current state
+        |> List.distinct // remove duplicates
     failwithf "Not Implemented"
 
 /// Given a list of non-duplicate integers, return a list of lists of consecutive integers containing the same values.
@@ -106,6 +144,11 @@ let reachableNodes (start: 'a) (graph: Map<'a, 'a list>) : 'a list =
 let consecutiveLists (lst: int list) : int list list =
     // Surprisingly, this is IMHO easiest to do without recursion or fold (type 1).
     // Can you see how?
+    lst
+    |> List.indexed
+    |> List.groupBy (number - index)
+    |> List.Map // (remove group value, and (another List.map) index from list of elements)
+
     failwithf "Not Implemented"
     
 
