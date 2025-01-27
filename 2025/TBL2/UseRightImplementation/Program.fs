@@ -29,7 +29,7 @@ let chunkBySize (size: int) (lst: 'a list) : 'a list list=
         failwithf "Not Implemented"
 
 /// Return the modal element(s) of a list. If there are multiple modals, return
-/// all of them in the order they appear in the list.
+/// all of them in the ascending default sort order.
 let modals (lst: 'a list) : 'a list =
         failwithf "Not Implemented"
 
