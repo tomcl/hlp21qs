@@ -33,7 +33,7 @@ let chunkBySize (size: int) (lst: 'a list) : 'a list list=
 let modals (lst: 'a list) : 'a list =
         failwithf "Not Implemented"
 
-/// Return the element that occurs most times in a list of integers.
+/// Return the element that occurs most times consecutively in a list of integers.
 /// If there are multiple such return the lowest.
 let maxRepeats (lst: int list) : int =
         failwithf "Not Implemented"
