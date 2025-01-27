@@ -86,6 +86,12 @@ let oddSublists (lst: 'a list list) : 'a list =
 /// Use Dijkstra's algorithm, or some variant with different end conditions, to find the reachable nodes.
 let reachableNodes (start: 'a) (graph: Map<'a, 'a list>) : 'a list =
     failwithf "Not Implemented"
+
+/// Given a list of non-duplicate integers, return a list of lists of consecutive integers containing the same values.
+/// You may assume the input list is sorted in ascending numerical order.
+/// Example: [1;2;3;5;6;7;10] -> [[1;2;3];[5;6;7];[10]]
+let consecutiveLists (lst: int list) : int list list =
+    failwithf "Not Implemented"
     
 
 [<EntryPoint>]

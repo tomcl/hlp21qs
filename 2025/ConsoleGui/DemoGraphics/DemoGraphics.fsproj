@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="LibExtensions.fs" />
+    <Compile Include="Types.fs" />
+    <Compile Include="Screen.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

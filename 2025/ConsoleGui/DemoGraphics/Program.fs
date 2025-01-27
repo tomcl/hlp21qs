@@ -17,25 +17,23 @@ ConsoleRenderer.Examples/Programs/*.cs
 
 *)
 
-/// F# version of C# ConsoleCanvas to make Intellisense work on members!
-type ConsoleCanvas(width:int, height:int) =
-    inherit ConsoleRenderer.ConsoleCanvas(width, height)
+
 
 
 [<EntryPoint>]
 let main argv =
     let canvas = 
-        ConsoleCanvas(100,30)
+        ConsoleCanvas()
         |> fun c -> c.CreateBorder()
         |> fun c -> c.Text(50,15,"Hello World!")
-        |> fun c -> c.Render()
+        |> (fun c -> c.Render())
 
         
 
 
     [1..10] |> List.iter (fun i ->
-        Console.ReadKey() |> ignore
-        canvas.Text(50+i,15+i,$"Hello World {i}!")
+        canvas
+        |> fun c -> c.Text(50+i,15+i,$"Hello World {i}: {canvas.Width}X{canvas.Height}!")
         |> fun c -> c.Render()
         |> ignore)
     0 // Return 0 to indicate successful execution
