@@ -11,11 +11,13 @@
 
 // Part A. Individual work:
 // Without starting any implementation say which method 1., 2. or 3., you would use and why.
-// For each method, guess which list functions would be part of that implementation.
+// For each method, guess which List or Map functions would be part of that implementation.
+// Sketch a solution by stating in order the functions you would use and (if not obvious) their purpose.
 //
 // Part B. Team work:
 // 1. Compare individual answers and decide which method to use. If there are differences, discuss and decide.
-// 2. Implement the functions using the agreed methods.
+//    Make the "sketched solution" understandable.
+// 2. (only after 1. is completed). Implement the functions using the agreed methods.
 
 
 
@@ -91,6 +93,8 @@ let reachableNodes (start: 'a) (graph: Map<'a, 'a list>) : 'a list =
 /// You may assume the input list is sorted in ascending numerical order.
 /// Example: [1;2;3;5;6;7;10] -> [[1;2;3];[5;6;7];[10]]
 let consecutiveLists (lst: int list) : int list list =
+    // Surprisingly, this is IMHO easiest to do without recursion or fold (type 1).
+    // Can you see how?
     failwithf "Not Implemented"
     
 
