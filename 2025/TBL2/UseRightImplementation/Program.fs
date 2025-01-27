@@ -22,16 +22,17 @@
 
 
 /// You are not allowed to use List.chunkBySize in this implementation!
-let chunkBySize (size: int) (lst: 'a list) =
+let chunkBySize (size: int) (lst: 'a list) : 'a list list=
         failwithf "Not Implemented"
 
-/// Return the modal element of a list. If there are multiple modals, return the as a list
+/// Return the modal element(s) of a list. If there are multiple modals, return
 /// all of them in the order they appear in the list.
-let modals (lst: 'a list) =
+let modals (lst: 'a list) : 'a list =
         failwithf "Not Implemented"
 
-/// Return the element that is repeated most times in the list.
-let maxRepeats (lst: 'a list) =
+/// Return the element that occurs most times in a list of integers.
+/// If there are multiple such return the lowest.
+let maxRepeats (lst: int list) : int =
         failwithf "Not Implemented"
 
 /// A palindrome is a word that reads the same forwards and backwards. 
