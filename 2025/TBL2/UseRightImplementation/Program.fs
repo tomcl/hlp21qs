@@ -26,11 +26,18 @@
 
 /// You are not allowed to use List.chunkBySize in this implementation!
 let chunkBySize (size: int) (lst: 'a list) : 'a list list=
+        // List.indexed
+        // |> List.groupBy // group by index / size
+        // NB have to use index here since definition of chunkBySize does this!
         failwithf "Not Implemented"
 
 /// Return the modal element(s) of a list. If there are multiple modals, return
 /// all of them in the order they appear in the list.
 let modals (lst: 'a list) : 'a list =
+        List.groupBy id // group like elements together
+        List.map // transform each group to a pair of element and count
+        List.sortBy
+        List.head
         failwithf "Not Implemented"
 
 /// Return the element that occurs most times in a list of integers.
