@@ -7,12 +7,15 @@
 // please explain why in a comment.
 //
 // Note - nearly everything is lists, but you may use other collections if you think it is appropriate.
-// Note - for 3. implementations you may modify the function heaers below to allow a recursive definition.
+// Note - for 3. implementations you may modify the function headers below to allow a recursive definition.
 
 // Part A. Individual work:
 // Without starting any implementation say which method 1., 2. or 3., you would use and why.
 // For each method, guess which List or Map functions would be part of that implementation.
 // Sketch a solution by stating in order the functions you would use and (if not obvious) their purpose.
+// For a recursive definition (if you need that) state the recursive reduction rules and end cases in
+// whatever way is easiest for you: or state how the recursion works without necessarily being
+// precise about end cases - as long as it is obvious they exist.
 //
 // Part B. Team work:
 // 1. Compare individual answers and decide which method to use. If there are differences, discuss and decide.
