@@ -54,17 +54,17 @@ let maxRepeats (lst: int list) : int =
 /// Return the list of all non-palindromic values (without repeated values) in the order they
 /// first appear in the list.
 let nonPalindromic (lst: 'a list) : 'a list =
-        let rLst = List.rev lst
-        List.zip lst rLst
-        List.filter // non-palindromic
-        List.map fst // origianl lits values
+        List.zip lst (List.rev lst) // zip with reversed list
+        List.filter // non-palindromic values have fst el <> snd el
+        List.map fst // original lits values
         failwithf "Not Implemented"
 
 /// Given a list of words, return a unique list of all non-empty proper substrings of the words that are in the list.
 /// A proper substring is one that is not the same as the original word.
 /// NB - use method Contains: w.Contains(x) checks if string w contains string x
 let subWords (lst: string list) : 'a list =
-        List.filter // filter (fun x -> List.exists (fun w -> w.contains(x)) //the word is contained in some other word in the list
+        List.filter // filter (fun x -> List.exists (fun w -> w.contains(x)) 
+                    //the word is contained in some other word in the list
         failwithf "Not Implemented"
 
 /// A list of pairs determines a state machine. Each pair is a transition from one state to another.
@@ -76,8 +76,8 @@ let subWords (lst: string list) : 'a list =
 let runStateMachine (maxClocks: int) (start: 'a) (lst: ('a * 'b) list)  : 'a list option =
         ( start,[0..maxClocks-1])
         ||> List.scan // Option.map folder function that does state transition or returns None
-        |> List.takeWhile // take while scan result list elements are not None
-        |> function | [] -> None, 
+        |> List.takeWhile // take while scan result list elements are Some x
+        |> function | lst when lst.Length = maxClocks -> None
                     | lst -> List.map Option.get lst // get the values from the option list
 
 
@@ -88,10 +88,12 @@ let runStateMachine (maxClocks: int) (start: 'a) (lst: ('a * 'b) list)  : 'a lis
 /// The order of the list is the order the values appear in the list.
 /// The list of integers may contain duplicates.
 let sumOfTwo (lst: int list) : int list =
-    let sumEls = // to make it much more time-efficient calculate this first
+    let sumEls = // to make it much more time-efficient calculate this once first
         List.allPairs lst lst
-        ||> List.map (+)
-        |> List.distinct // remove duplicates - optional
+        |>  // optional - could filter to make pairs ordered or even generate pairs only once for
+           // each pair of elemets - saving 50% time. Not worth it in most cases!
+        |> List.map (fun (a,b) -> a+b)
+        |> List.distinct // remove duplicates - optional - but why not!
     lst
     |> List.filter (fun x -> List.exists (fun y -> x = y) sumEls)
     failwithf "Not Implemented"
