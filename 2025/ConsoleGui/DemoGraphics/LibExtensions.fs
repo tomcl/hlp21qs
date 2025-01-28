@@ -45,7 +45,7 @@ module Map =
         |> Seq.toList
     
     /// Return the value in Map m at key, or defaultValue if key is not in the map
-    let tryFindWith (key: 'a) (defaultValue: 'b) (m: Map<'a,'b>) =
+    let findWith (key: 'a) (defaultValue: 'b) (m: Map<'a,'b>) =
         match Map.tryFind key m with
         | Some v -> v
         | None -> defaultValue

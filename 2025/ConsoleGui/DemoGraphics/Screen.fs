@@ -1,7 +1,19 @@
 ﻿module Screen
 //-------------------------------------------------//
-// This is the F# version of the C# ConsoleCanvas  //
-// 
+// This is a wrapper for C# ConsoleCanvas  Which provides a convenenient way to write
+// characters to the console screen.  The ScreenModel is a 2D map of characters, where
+// ScreenModel[y][x] is the character in  row y, column x.
+// Characters not in the map are assumed to be spaces.
+//
+// Model<'a> is a partly user defines model that contains screen and user-defined persistent state
+//
+// The ScreenModel type is used by the render function, which writes the NextScreen to the console.
+// The NextScreen field of Model should updated by the user code, and then render called to update the screen.
+//
+// The 'a type parameter of Model is the user state type in Model, it should be a record type
+// containing all persistent user state
+// getScreenChar is a helper function to get the character in NextScreen at a given row and column.
+// initScreen creates a new empty screen with a ConsoleCanvas.
 open Types
 
 
@@ -11,15 +23,25 @@ let initScreen (model: Model<'a>) : Model<'a> =
         ConsoleRenderer.ConsoleCanvas()
         |> fun canvas -> canvas.Clear()
     { model with
-        Screen = Map.empty, canvas
+        ConsoleScreen = Map.empty, canvas
         NextScreen = Map.empty
         Width = canvas.Width; 
         Height = canvas.Height; 
     }
 
+/// Return the current (but possibly not rendered) character at row y, column x
+let getScreenChar (y: int) (x: int) (model: Model<'a>) = 
+    match Map.tryFind y model.NextScreen with
+    | Some row -> 
+        match Map.tryFind x row with
+        | Some c -> c
+        | None -> ' '
+    | None -> ' '
+
 /// Return a list of strings to write to the screen
 /// To make sOld look like sNew
-let diffScreen (sOld: ScreenModel) (sNew: ScreenModel) = 
+/// Used by render
+let private diffScreen (sOld: ScreenModel) (sNew: ScreenModel) = 
     /// any key old or new in the two maps
     let allKeys (oldM: Map<'k,'v>) (newM: Map<'k,'v>) =
         Seq.append oldM.Keys newM.Keys
@@ -43,19 +65,15 @@ let diffScreen (sOld: ScreenModel) (sNew: ScreenModel) =
                 match getChar y x sOld, getChar y x sNew with
                 | ch1, ch2 when ch1 <> ch2 -> [x,ch2]
                 | _ -> [])
-        /// Return indexes grouping changes into contiguous runs
-        let stringNums =
-            List.pairwise changes
-            |> (fun changePairs -> (0,changePairs))
-            ||> List.scan (fun grp ((lastKey,lastCh),(key,ch)) -> 
-                if lastKey + 1 = key then grp else grp + 1)
+
         /// Group changes by contiguous runs
         let groupedChanges =
-            List.zip stringNums changes
-            |> List.groupBy fst
-            |> List.map snd
+            List.indexed changes
+            |> List.groupBy (fun (i,(col,_ch)) -> col - i)
+            |> List.map (snd >> List.map snd)
         /// Convert run of changes into lowest col index and string of changes.
         /// Return strings to write to the screen, indexed by first y (row) and then x (col) index.
+
         let stringsToWrite =
             groupedChanges
             |> List.map (fun changes -> 
@@ -65,6 +83,15 @@ let diffScreen (sOld: ScreenModel) (sNew: ScreenModel) =
         stringsToWrite
     allKeys sOld sNew
     |> List.collect diffRow
+
+/// Write the NextScreen to the console
+/// Update Screen to be NextScreen, so Screen is in sync with the Conslanole
+let render (model: Model<'a>) : Model<'a> = 
+    let (screen,canvas) = model.ConsoleScreen
+    diffScreen screen model.NextScreen
+    |> List.iter (fun (y,x,s) -> canvas.Text(x, y, s) |> ignore)
+    canvas.Render() |> ignore
+    { model with ConsoleScreen = model.NextScreen, snd model.ConsoleScreen }
 
         
             

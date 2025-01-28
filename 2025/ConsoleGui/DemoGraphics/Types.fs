@@ -8,7 +8,7 @@ type ScreenModel = Map<int, Map<int, char>>
 
 type Model<'MODEL> = {
     /// F# 2D map of chars with ConsoleCanvas implementation
-    Screen: ScreenModel * ConsoleRenderer.ConsoleCanvas
+    ConsoleScreen: ScreenModel * ConsoleRenderer.ConsoleCanvas
     /// Next screen to transition to
     NextScreen: ScreenModel
     /// Width of the screen in characters

@@ -101,8 +101,12 @@ let sumOfTwo (lst: int list) : int list =
 /// Create a map that maps each number from 1 to maxInt to the largest divisor of that number.
 let createLargestDivisorMap (maxInt: int) =
     [1..MaxInt]
-    |> (fun n -> List.filter // keep only divisors /pair result with number)
-    |> List.map // return max divisor list paired with number
+    |> List.map (fun n -> 
+                 [1..n/2] // all possible divisors
+                 |> List.filter // keep only divisors)
+                 |> List.max // largest divisor
+                 |> List.Cons n // pair result with n
+                    )
     |> Map.ofList // create map from list
     failwithf "Not Implemented"
 
