@@ -31,7 +31,7 @@ DEMO wanted:
     a single int field for this demo
 6. The integer must be written to the top of the screen, and incrememnted by 1 each time the user presses a key
 7. The screen should be rendered once per cliLoop iteration.
-
+*)
 [<EntryPoint>]
 let main argv =
     let canvas = 
