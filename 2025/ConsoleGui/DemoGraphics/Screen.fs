@@ -50,7 +50,7 @@ let private diffScreen (sOld: ScreenModel) (sNew: ScreenModel) =
         |> List.sort
 
     let getChar (y: int) (x: int) (scr: ScreenModel) = 
-        match Map.tryFind y sOld with
+        match Map.tryFind y scr with
         | Some row -> 
             match Map.tryFind x row with
             | Some c -> c
@@ -60,29 +60,31 @@ let private diffScreen (sOld: ScreenModel) (sNew: ScreenModel) =
     let diffRow (y: int) =
         /// all changes in the row as (x, newChar) pairs
         let changes =
-            allKeys sOld sNew
+            allKeys (Map.tryFind y sOld |> Option.defaultValue Map.empty)
+                   (Map.tryFind y sNew |> Option.defaultValue Map.empty)
             |> List.collect (fun x -> 
-                match getChar y x sOld, getChar y x sNew with
-                | ch1, ch2 when ch1 <> ch2 -> [x,ch2]
-                | _ -> [])
+                let ch1 = getChar y x sOld
+                let ch2 = getChar y x sNew
+                if ch1 <> ch2 then [(x,ch2)] else [])
 
         /// Group changes by contiguous runs
         let groupedChanges =
             List.indexed changes
             |> List.groupBy (fun (i,(col,_ch)) -> col - i)
             |> List.map (snd >> List.map snd)
-        /// Convert run of changes into lowest col index and string of changes.
-        /// Return strings to write to the screen, indexed by first y (row) and then x (col) index.
-
+        
+        /// Convert run of changes into lowest col index and string of changes
         let stringsToWrite =
             groupedChanges
             |> List.map (fun changes -> 
-                y,
-                fst (List.head changes), 
-                changes |> List.map (fun (_,ch) -> $"{ch}") |> String.concat "")
+                let firstCol = fst (List.head changes)
+                let str = changes |> List.map snd |> Array.ofList |> System.String
+                (y, firstCol, str))
         stringsToWrite
+
     allKeys sOld sNew
     |> List.collect diffRow
+
 
 /// Write the NextScreen to the console
 /// Update Screen to be NextScreen, so Screen is in sync with the Conslanole
@@ -92,12 +94,3 @@ let render (model: Model<'a>) : Model<'a> =
     |> List.iter (fun (y,x,s) -> canvas.Text(x, y, s) |> ignore)
     canvas.Render() |> ignore
     { model with ConsoleScreen = model.NextScreen, snd model.ConsoleScreen }
-
-        
-            
- 
-        
-
-            
-        
-
