@@ -56,8 +56,7 @@ let chunkBySize2 (size: int) (lst: 'a list)  =
 /// Return the modal element(s) of a list. If there are multiple modals, return
 /// all of them in the order they appear in the list.
 let modals (lst: 'a list) : 'a list =
-        List.groupBy id lst// group like elements together
-        |> List.map (fun (el,grp) -> el, grp.Length)// transform each group to a pair of element and count
+        List.countBy id lst// generate counts of elements
         |> List.groupBy snd // group by number of elements: first group after sorting is the modals
         |> List.sortByDescending snd // sort by number of elements. Keeps order of modals
         |> List.tryHead // not really needed, but deal nicely with the empty list case
@@ -116,8 +115,11 @@ let runStateMachine (maxClocks: int) (start: 'a) (lst: ('a * 'a) list)  : 'a lis
 /// The list of integers may contain duplicates.
 let sumOfTwo (lst: int list) : int list =
     let sumEls = // to make it much more time-efficient calculate this once first
-        List.allPairs lst lst
-        // optional - could filter hereto make pairs ordered or even generate pairs only once for
+        List.allPairs lst lst // Could do all this with Seq for better space efficiency, but caution - 
+                              // it would probably not be more time efficient
+                              // neither under dotnet F#, nor F# transpiled to JS by FABLE 
+                              // if time efficiency is VERY important it would be worth checking
+        // optional - could filter hereto make pairs ordered or generate pairs only once for
         // each pair of elements - saving 50% time. Not worth it in most cases!
         |> List.map (fun (a,b) -> a+b)
         |> List.distinct // remove duplicates - optional - but why not!
@@ -126,7 +128,9 @@ let sumOfTwo (lst: int list) : int list =
 
 /// Create a map that maps each number from 1 to maxInt to the largest proper divisor of that number.
 let createLargestDivisorMap (maxInt: int) =
-    [1..maxInt]
+    // looks like spec is impossible since 1 does not have a proper divisor
+    // omit this from the map
+    [2..maxInt]
     |> List.map (fun n -> 
         [1..n/2] // all possible divisors
         |> List.filter (fun d -> n % d = 0) // keep only divisors)
@@ -145,24 +149,34 @@ let mapUnion (map1: Map<'a,'b>) (map2: Map<'a,'b>) : Map<'a,'b> =
 /// Thus [Some 1; Some 2; None; Some 3; Some 4; None] is [[1;2];[3;4]]
 /// Return the list of lists
 let splitList (lst: 'a option list) : 'a list list =
-    // List.fold - state is pair of current list and previous list of lists
-    // snd of state is previous list of lists
-    failwithf "Not Implemented"
+    // if efficiency matters here we could reverse the accumulated lits, and the accumulated sublists,
+    // at end and therefore construct them O(1) instead of O(N) in each case.
+    (([],[]),lst)
+    ||> List.fold (fun (lsts, currLst) optEl -> 
+        match optEl with
+        | None -> lsts @ [currLst] , []
+        | Some el -> lsts,  currLst @ [el])
+    |> fst
+    (* NB if None terminator is optional at end of list we need to replace fst by the following
+    |> function | lsts, [] -> lsts 
+                | lsts, currLst -> lsts @ [currLst]
+    *)
 
 /// Given a list of lists, return the list of all values that are in an odd number of the sublists.
 let oddSublists (lst: 'a list list) : 'a list =
-    // use Sets. That allows Set.difference
-    // List.fold over list of lists, keeping as state Set of elements that are currently in od number
-    // use Set.difference to generate next state from previous state diferneced with current list converted to Set
-    failwithf "Not Implemented"
+    (Set.empty,lst)
+    ||> List.fold (fun odds els  -> Set.difference odds (Set els))
+    |> Set.toList
+    
 
 /// Given a map defining the arrows in a directed graph, return the list of all nodes that are reachable 
 /// from the start node.
 /// Use Dijkstra's algorithm, or some variant with different end conditions, to find the reachable nodes.
 let reachableNodes (start: 'a) (graph: Map<'a, 'a list>) : 'a list =
-    // Dijkstra's algorithm - breadth fist search adding nodes each step
-    // we need at most one step per node in the graph - 1
-    ([start],[1..graph.Count-1])
+    // Dijkstra's algorithm (sort of) - breadth fist search adding nodes each step
+    // we need at most one step per node in the graph
+    // maybe graph.Count - 1 ?
+    ([start],[1..graph.Count])
     ||> List.fold (fun reachedSoFar _ -> 
         reachedSoFar
         |> List.collect (fun node -> Map.tryFind node graph |> Option.defaultValue []) // generate possible next state nodes from current state
@@ -173,8 +187,6 @@ let reachableNodes (start: 'a) (graph: Map<'a, 'a list>) : 'a list =
 /// You may assume the input list is sorted in ascending numerical order.
 /// Example: [1;2;3;5;6;7;10] -> [[1;2;3];[5;6;7];[10]]
 let consecutiveLists (lst: int list) : int list list =
-    // Surprisingly, this is IMHO easiest to do without recursion or fold (type 1).
-    // Can you see how?
     List.indexed lst
     |> List.groupBy (fun (index,number) -> number - index)
     |> List.map (fun (grp, grpLst) -> grpLst |> List.map snd)
